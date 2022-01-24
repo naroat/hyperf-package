@@ -20,8 +20,6 @@
     "require": {
         "php": ">=7.3",
         "hyperf/framework": "~2.2.0",
-        "phpunit/phpunit": "^8.0",
-        "aliyuncs/oss-sdk-php": "^2.4",
-        "firebase/php-jwt": "^4.0"
+        "phpunit/phpunit": "^8.0"
     }
 }
