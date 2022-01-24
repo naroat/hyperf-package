@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Package\HyperfPackage\Helpers;
+namespace Taoran\HyperfPackage\Helpers;
 
 /**
  * xml to array 转换.

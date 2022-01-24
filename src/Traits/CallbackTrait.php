@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Package\HyperfPackage\Traits;
+namespace Taoran\HyperfPackage\Traits;
 
 
 trait CallbackTrait

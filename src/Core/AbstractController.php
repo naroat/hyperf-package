@@ -9,14 +9,14 @@ declare(strict_types=1);
  * @contact  group@hyperf.io
  * @license  https://github.com/hyperf/hyperf/blob/master/LICENSE
  */
-namespace Package\HyperfPackage\Core;
+namespace Taoran\HyperfPackage\Core;
 
 use Hyperf\Contract\ConfigInterface;
 use Hyperf\Di\Annotation\Inject;
 use Hyperf\HttpServer\Contract\RequestInterface;
 use Hyperf\HttpServer\Contract\ResponseInterface;
 use Hyperf\Validation\Contract\ValidatorFactoryInterface;
-use Package\HyperfPackage\Core\Response;
+use Taoran\HyperfPackage\Core\Response;
 use Psr\Container\ContainerInterface;
 
 abstract class AbstractController

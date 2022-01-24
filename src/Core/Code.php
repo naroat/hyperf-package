@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Package\HyperfPackage\Core;
+namespace Taoran\HyperfPackage\Core;
 
-use Package\HyperfPackage\Core\AbstractController;
+use Taoran\HyperfPackage\Core\AbstractController;
 
 class Code extends AbstractController
 {

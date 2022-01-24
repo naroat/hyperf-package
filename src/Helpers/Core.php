@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Package\HyperfPackage\Helpers;
+namespace Taoran\HyperfPackage\Helpers;
 
 
 if (! function_exists('encrypt_password')) {

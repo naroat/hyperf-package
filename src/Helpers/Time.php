@@ -1,6 +1,6 @@
 <?php
 
-namespace Package\HyperfPackage\Helpers;
+namespace Taoran\HyperfPackage\Helpers;
 
 /**
  * 获取毫秒级别的时间戳

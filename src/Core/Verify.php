@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Package\HyperfPackage\Core;
+namespace Taoran\HyperfPackage\Core;
 
 
 use Hyperf\HttpServer\Contract\RequestInterface;

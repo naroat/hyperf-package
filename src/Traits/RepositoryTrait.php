@@ -1,9 +1,9 @@
 <?php
 
 
-namespace Package\HyperfPackage\Traits;
+namespace Taoran\HyperfPackage\Traits;
 
-use Package\HyperfPackage\Traits\CallbackTrait;
+use Taoran\HyperfPackage\Traits\CallbackTrait;
 
 /**
  * repository层，协助model处理

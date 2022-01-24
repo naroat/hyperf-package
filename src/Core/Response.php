@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Package\HyperfPackage\Core;
+namespace Taoran\HyperfPackage\Core;
 
 class Response
 {

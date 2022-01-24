@@ -1,6 +1,6 @@
 <?php
 
-namespace Package\HyperfPackage\Helpers\Password;
+namespace Taoran\HyperfPackage\Helpers\Password;
 
 /**
  * 生成全局唯一标识
