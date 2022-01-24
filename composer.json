@@ -1,0 +1,27 @@
+{
+    "name": "taoran/hyperf-package",
+    "description": "taoran hyperf-package",
+    "keywords": ["package", "hyperf", "util"],
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Taoran\\HyperfPackage\\": "src/"
+        },
+        "files": [
+            "src/Helpers/Function.php"
+        ]
+    },
+    "authors": [
+        {
+            "name": "taoran",
+            "email": "taoran0796@163.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.3",
+        "hyperf/framework": "~2.2.0",
+        "phpunit/phpunit": "^8.0",
+        "aliyuncs/oss-sdk-php": "^2.4",
+        "firebase/php-jwt": "^4.0"
+    }
+}
