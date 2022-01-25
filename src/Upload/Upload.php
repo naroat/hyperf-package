@@ -4,18 +4,13 @@
 namespace Taoran\HyperfPackage\Upload;
 
 use Hyperf\Di\Annotation\Inject;
-use Hyperf\HttpMessage\Upload\UploadedFile;
-use Hyperf\HttpServer\Contract\RequestInterface;
-class Upload extends UploadAbstract
-{
-    /**
-     * 上传驱动
-     *
-     * local, aliyun
-     * @var bool|string
-     */
-    public $drive = 'local';
 
+use Hyperf\HttpServer\Contract\RequestInterface;
+use function Taoran\HyperfPackage\Helpers\get_msectime;
+
+
+class Upload
+{
     /**
      * @Inject()
      * @var RequestInterface
@@ -23,134 +18,88 @@ class Upload extends UploadAbstract
     protected $request;
 
     /**
-     * 文件
+     * 上传到本地
      *
-     * @var
+     * @param $upload_path 上传路径
      */
-    public $file;
-
-    /**
-     * 文件名
-     *
-     * @var
-     */
-    public $filename;
-
-    /**
-     * 文件后缀名
-     *
-     * @var
-     */
-    public $ext;
-
-    /**
-     * 存储路径
-     *
-     * @var
-     */
-    public $path;
-
-    /**
-     * 访问权限
-     *
-     * @var public/private(公共读/私有)
-     */
-    public $acl = 'private';
-
-    /**
-     * 上传类
-     *
-     * @var
-     */
-    public $upload;
-
-    public function __construct()
+    public function toLocal($file, $upload_path, $filename = null)
     {
-        $this->drive = config('upload.drive');
-        $this->setFile();
-        $this->getDrive($this->drive);
+        if (!is_dir($upload_path)) {
+            mkdir($upload_path, 0777, true);
+        }
+
+        $filename = $filename ?? get_msectime() . '.' . $file->getExtension();
+
+        /*if (preg_match('/^(data:\s*image\/(\w+);base64,)/', $file_param['miniurl'], $result)) {
+            if (!file_put_contents($upload_path . $filename, base64_decode(str_replace($result[1], '', $file_param['miniurl'])))) {
+                throw new ApiException('上传失败！');
+            }
+        }*/
+
+        $pathfull = $upload_path . $filename;
+        $file->moveTo($pathfull);
+        if (!$file->isMoved()) {
+            throw new Exception('文件上传失败!');
+        }
+        return $pathfull;
     }
 
     /**
-     * 设置文件
+     * 上传到alioss
      */
-    public function setFile()
+    public function toAlioss($file, $upload_remote_path, $upload_path = 'uploads/tmp/', $filename = null)
+    {
+        //文件名
+        $filename = $filename ?? get_msectime() . '.' . $file->getExtension();
+        //完整路径
+        $pathfull = $upload_path . $filename;
+        //先上传本地
+        $this->toLocal($file, $upload_path, $filename);
+
+        //上传alioss
+        $uploadAli = new \Taoran\HyperfPackage\Upload\Aliyun\Upload();
+        $uploadAli->uploadDirect($upload_remote_path . $filename, $pathfull, 'public');
+        $path = config('aliyun.oss.bucket_domain') . '/' . $upload_remote_path . $filename;
+
+        //清除临时文件
+        @unlink($pathfull);
+        //return
+        return $this->responseCore->success([
+            'path' => $path
+        ]);
+    }
+
+    /**
+     * check
+     * @return \Hyperf\HttpMessage\Upload\UploadedFile|\Hyperf\HttpMessage\Upload\UploadedFile[]|null
+     */
+    public function checkFile()
     {
         if ($this->request->hasFile('file') && $this->request->file('file')->isValid()) {
-            $this->file = $this->request->file('file');
+            $file = $this->request->file('file');
         } else {
-            throw new Exception('文件错误!');
+            throw new Exception('文件上传失败!');
         }
+
+        $this->extCheck($this->request->file('file')->getExtension());
+
+        return $file;
     }
 
     /**
-     * 获取驱动
+     * 文件格式验证
      *
-     * @param string $drive
+     * @param $ext
+     * @return bool
+     * @throws ApiException
      */
-    public function getDrive(string $drive)
+    public function extCheck($ext)
     {
-        $drive = '\Taoran\HyperfPackage\Upload\\' . ucfirst($drive) . '\Upload';
-
-        if (class_exists($drive)) {
-            $this->upload = new $drive();
-        } else {
-            throw new \Exception('上传失败!');
+        $ext = strtolower($ext);
+        $exts = ExtGroup::$ext;
+        if (!in_array($ext, $exts)) {
+            throw new \Exception('不支持的文件类型！');
         }
-    }
-
-    /**
-     * 上传入口
-     */
-    public function upload()
-    {
-        //验证扩展名
-        $this->extCheck($this->getExt());
-        //验证大小
-        $this->sizeCheck();
-        //上传文件
-        return $this->upload->upload($this->file, $this->getPath(), $this->getFileName(), $this->acl);
-    }
-
-    /**
-     * 获取存储路径
-     */
-    public function getPath()
-    {
-        return !empty($this->path) ? $this->path : 'uploads';
-    }
-
-    /**
-     * 获取文件名
-     */
-    public function getFileName()
-    {
-        return !empty($this->filename) ? $this->filename : md5(time() . rand(1000, 9999)) . '.' . $this->getExt();
-    }
-
-    /**
-     * 文件大小验证
-     */
-    public function sizeCheck()
-    {
-        //文件大小
-        $filesize = $this->file->getClientSize();
-
-        //php.ini中配置的上传文件的最大大小
-        $maxFileSize = $this->file->getMaxFilesize();
-
-        if ($filesize > $maxFileSize) {
-            throw new \Exception('上传失败，文件过大！');
-        }
-    }
-
-    /**
-     * 获取后缀名
-     */
-    public function getExt()
-    {
-        //根据mime类型获取扩展名
-        $this->ext = empty($this->ext) ? $this->file->guessExtension() : $this->ext;
-        return $this->ext;
+        return true;
     }
 }

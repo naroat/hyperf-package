@@ -21,7 +21,8 @@
         "php": ">=7.3",
         "hyperf/framework": "~2.2.0",
         "hyperf/validation": "^2.2",
-        "hyperf/paginator": "~2.2.0"
+        "hyperf/paginator": "~2.2.0",
+        "hyperf/di": "~2.2.0"
     },
     "extra": {
         "hyperf": {
