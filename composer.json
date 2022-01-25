@@ -22,5 +22,8 @@
         "hyperf/framework": "~2.2.0",
         "hyperf/validation": "^2.2",
         "hyperf/paginator": "~2.2.0"
+    },
+    "hyperf": {
+        "config": "Taoran\\HyperfPackage\\ConfigProvider"
     }
 }
