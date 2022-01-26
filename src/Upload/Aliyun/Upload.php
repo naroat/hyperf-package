@@ -8,7 +8,7 @@ use OSS\OssClient;
 use Taoran\HyperfPackage\Upload\UploadAbstract;
 use Taoran\HyperfPackage\Upload\UploadInterface;
 
-class Upload extends UploadAbstract implements UploadInterface
+class Upload implements UploadInterface
 {
     protected $accessKeyId;
 

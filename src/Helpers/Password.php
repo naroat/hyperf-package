@@ -2,6 +2,8 @@
 
 namespace Taoran\HyperfPackage\Helpers\Password;
 
+use function Taoran\HyperfPackage\Helpers\randString;
+
 /**
  * 生成全局唯一标识
  */
@@ -29,7 +31,7 @@ if (!function_exists('create_guid')) {
 if (!function_exists('create_password')) {
     function create_password($password, &$salt)
     {
-        $salt = \Illuminate\Support\Str::random(5);
+        $salt = randString(5);
         return md5(sha1($password . $salt));
     }
 }
