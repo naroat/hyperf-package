@@ -30,7 +30,7 @@ trait RepositoryTrait
         if (isset($params['is_all']) && $params['is_all'] == 1) {
             $list = $orm->get();
         } else {
-            $list = $orm->paginate($params['page_limit'] ?? 20);
+            $list = $orm->paginate($params['page_limit'] ?? 20, ['*'], 'page', $params['page'] ?? 1);
         }
         return $list;
     }

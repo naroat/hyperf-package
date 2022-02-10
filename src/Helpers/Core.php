@@ -733,6 +733,8 @@ if (!function_exists('set_save_data')) {
             if (is_string($v)) {
                 //转换html内容
                 $model->$key = htmlspecialchars($v, ENT_QUOTES);
+            } else {
+                $model->$key = $v;
             }
         }
         return $model;
