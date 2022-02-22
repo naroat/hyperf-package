@@ -3,19 +3,50 @@
 
 namespace Taoran\HyperfPackage\Core;
 
-
+use Hyperf\Di\Annotation\Inject;
 use Hyperf\HttpServer\Contract\RequestInterface;
+use Hyperf\Validation\Contract\ValidatorFactoryInterface;
 
 class Verify
 {
     /**
-     * 获取请求的数据.
+     * @Inject()
+     * @var ValidatorFactoryInterface
+     */
+    protected $validationFactory;
+
+    /**
+     * 验证
+     *
+     * @param $rule
+     * @param $rule_msg
+     * @param RequestInterface $request
+     * @return mixed
+     * @throws \Exception
+     */
+    public function check($params, $rule, $rule_msg)
+    {
+        $validator = $this->validationFactory->make(
+            $params,
+            $rule,
+            $rule_msg
+        );
+        if ($validator->fails()) {
+            throw new \Exception($validator->errors()->first());
+        }
+
+        return true;
+    }
+
+    /**
+     * 过滤参数
+     *
      * @param $params
      * @param RequestInterface $request
      * @param bool $suffix
      * @return array
      */
-    public static function requestParam($params, RequestInterface $request, $suffix = false): array
+    public function requestParams($params, RequestInterface $request, $suffix = false): array
     {
         $p = [];
         $i = 0;
@@ -41,5 +72,4 @@ class Verify
         }
         return $p;
     }
-
 }

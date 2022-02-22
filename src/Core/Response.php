@@ -14,7 +14,7 @@ class Response
     }
 
     //返回错误
-    public function error($code = 422, $message = '', $data = [])
+    public function error($message = '', $code = 422, $data = [])
     {
         if (empty($message)) {
             return $this->result($code, Code::getMessage($code), $data);
