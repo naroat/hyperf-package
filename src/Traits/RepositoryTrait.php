@@ -40,7 +40,7 @@ trait RepositoryTrait
      *
      * @param $id
      */
-    public function getOneById($select = ['*'], $id)
+    public function getOneById($id, $select = ['*'])
     {
         $data = self::select($select)->where('is_on', 1)->find($id);
         if (!$data) {

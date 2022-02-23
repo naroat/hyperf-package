@@ -44,7 +44,7 @@ class Code extends AbstractController
     const RECORD_NOT_FOUND = 404;
 
     /**
-     * @Message("Method Not Allowed")
+     * @Message("Mthod Not Allowed")
      */
     const METHOD_NOT_ALLOWED = 405;
 
