@@ -22,7 +22,8 @@
         "hyperf/framework": "~2.2.0",
         "hyperf/validation": "^2.2",
         "hyperf/paginator": "~2.2.0",
-        "hyperf/di": "~2.2.0"
+        "hyperf/di": "~2.2.0",
+        "aliyuncs/oss-sdk-php": "^2.4"
     },
     "extra": {
         "hyperf": {

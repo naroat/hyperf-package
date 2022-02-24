@@ -30,16 +30,10 @@ class Upload
 
         $filename = $filename ?? get_msectime() . '.' . $file->getExtension();
 
-        /*if (preg_match('/^(data:\s*image\/(\w+);base64,)/', $file_param['miniurl'], $result)) {
-            if (!file_put_contents($upload_path . $filename, base64_decode(str_replace($result[1], '', $file_param['miniurl'])))) {
-                throw new ApiException('上传失败！');
-            }
-        }*/
-
         $pathfull = $upload_path . $filename;
         $file->moveTo($pathfull);
         if (!$file->isMoved()) {
-            throw new Exception('文件上传失败!');
+            throw new \Exception('文件上传失败!');
         }
         return $pathfull;
     }
@@ -78,7 +72,7 @@ class Upload
         if ($this->request->hasFile('file') && $this->request->file('file')->isValid()) {
             $file = $this->request->file('file');
         } else {
-            throw new Exception('文件上传失败!');
+            throw new \Exception('文件上传失败!');
         }
 
         $this->extCheck($this->request->file('file')->getExtension());
@@ -91,7 +85,7 @@ class Upload
      *
      * @param $ext
      * @return bool
-     * @throws ApiException
+     * @throws Exception
      */
     public function extCheck($ext)
     {
