@@ -51,7 +51,7 @@ class Upload
         //完整路径
         $path = $this->uploadTmpDir . $filename;
         //先上传本地
-        $this->toLocal($file, $this->uploadTmpDir, $filename);
+        $this->toLocal($file, $filename);
         //上传alioss
         $uploadAli = new \Taoran\HyperfPackage\Upload\Aliyun\Upload();
         $uploadAli->uploadDirect($upload_remote_path . $filename, $path, 'public');
