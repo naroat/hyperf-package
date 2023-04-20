@@ -128,3 +128,137 @@ if (!function_exists('rmb_upper')) {
         return $new_str;
     }
 }
+
+
+if (!function_exists('encode_hashids')) {
+    /**
+     * 加密数字id到hashid
+     * @param $name
+     * @param $id
+     * @return bool|string
+     */
+    function encode_hashids($name, $id)
+    {
+        $config = config('hash.' . $name);
+
+        if (empty($config)) {
+            return false;
+        }
+
+        $alphabet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
+
+        //实例化Hashids
+        switch ($config['level']) {
+            case 1:
+                $alphabet = 'abcdefghijklmnopqrstuvwxyz';
+                break;
+            case 2:
+                $alphabet = 'abcdefghijklmnopqrstuvwxyz1234567890';
+                break;
+            case 3:
+                $alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
+                break;
+        }
+
+        $hashids = new \Hashids\Hashids($config['salt'], $config['length'], $alphabet);
+        $str = $hashids->encode($id);
+        unset($hashids);
+        return $str;
+    }
+}
+
+if (!function_exists('decode_hashids')) {
+    /**
+     * 解密数字id到hashid
+     * @param $name
+     * @param $hashid
+     * @return bool
+     */
+    function decode_hashids($name, $hashid)
+    {
+        $config = config('hash.' . $name);
+
+        if (empty($config)) {
+            return false;
+        }
+
+        $alphabet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
+
+        //实例化Hashids
+        switch ($config['level']) {
+            case 1:
+                $alphabet = 'abcdefghijklmnopqrstuvwxyz';
+                break;
+            case 2:
+                $alphabet = 'abcdefghijklmnopqrstuvwxyz1234567890';
+                break;
+            case 3:
+                $alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
+                break;
+        }
+
+        $hashids = new \Hashids\Hashids($config['salt'], $config['length'], $alphabet);
+        $ids = $hashids->decode($hashid);
+        unset($hashids);
+        if (!isset($ids[0])) {
+            return false;
+        }
+        return $ids[0];
+    }
+}
+
+if (!function_exists('hide_email')) {
+    /**
+     * 私隐化邮箱
+     * @param $email
+     * @return string
+     */
+    function hide_email($email)
+    {
+        if (empty($email)) {
+            return '';
+        }
+
+        $email_array = explode("@", $email);
+        $prevfix = (strlen($email_array[0]) < 4) ? "" : substr($email, 0, 3); //邮箱前缀
+        $count = 0;
+        $str = preg_replace('/([\d\w+_-]{0,100})@/', '***@', $email, -1, $count);
+        $rs = $prevfix . $str;
+        return $rs;
+    }
+}
+
+if (!function_exists('hide_phone')) {
+    /**
+     * 私隐化手机号码
+     * @param $phone
+     * @return string
+     */
+    function hide_phone($phone)
+    {
+        if (empty($phone)) {
+            return '';
+        }
+
+        $str = substr_replace($phone, '****', 3, 4);
+
+        return $str;
+    }
+}
+
+if (!function_exists('cut_html')) {
+    /**
+     * 去掉富文本标签
+     * @param $content
+     * @return string
+     */
+    function cut_html($content, $length = 100)
+    {
+        $content_01 = $content;//从数据库获取富文本content
+        $content_02 = htmlspecialchars_decode($content_01);//把一些预定义的 HTML 实体转换为字符
+        $content_03 = str_replace("&nbsp;", "", $content_02);//将空格替换成空
+        $contents = strip_tags($content_03);//函数剥去字符串中的 HTML、XML 以及 PHP 的标签,获取纯文本内容
+        $con = mb_substr($contents, 0, $length, "utf-8");//返回字符串中的前100字符串长度的字符
+        return $con;
+    }
+}
