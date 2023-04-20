@@ -1,7 +1,7 @@
 {
     "name": "taoran/hyperf-package",
     "description": "taoran hyperf-package",
-    "keywords": ["package", "hyperf", "util"],
+    "keywords": ["php", "hyperf", "util"],
     "license": "MIT",
     "autoload": {
         "psr-4": {
