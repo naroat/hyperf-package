@@ -24,7 +24,8 @@
         "hyperf/paginator": "~2.2.0",
         "hyperf/di": "~2.2.0",
         "phpmailer/phpmailer": "^6.6",
-        "aliyuncs/oss-sdk-php": "^2.4"
+        "aliyuncs/oss-sdk-php": "^2.4",
+        "hashids/hashids": "^4.1"
     },
     "extra": {
         "hyperf": {
