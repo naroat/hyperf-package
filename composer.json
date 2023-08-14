@@ -1,7 +1,7 @@
 {
     "name": "taoran/hyperf-package",
     "description": "taoran hyperf-package",
-    "keywords": ["php", "hyperf", "util"],
+    "keywords": ["php", "hyperf", "util", "package", "kit"],
     "license": "MIT",
     "autoload": {
         "psr-4": {
@@ -24,7 +24,7 @@
         "hyperf/paginator": "~2.2.0",
         "hyperf/di": "~2.2.0",
         "phpmailer/phpmailer": "^6.6",
-        "aliyuncs/oss-sdk-php": "^2.4",
+        "aliyuncs/oss-sdk-php": "^2.6",
         "hashids/hashids": "^4.1"
     },
     "extra": {

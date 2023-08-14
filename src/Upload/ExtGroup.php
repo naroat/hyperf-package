@@ -31,6 +31,11 @@ class ExtGroup
         'ico',
         //音频,
         'mp3',
+        'ogg',
+        'wav',
+        'm3u',
+        'm4a',
+        'ra',
         //视频
         'mp4',
         'avi',
@@ -41,7 +46,6 @@ class ExtGroup
         'flv',
         'mkv',
         'mov',
-        'ogg',
         //excel
         'xls',
         'xlsx',
@@ -78,12 +82,16 @@ class ExtGroup
         '3gp' => 'video/3gp',
         'rmvb' => 'video/rmvb',
         'wmv' => 'video/wmv',
-        'ogg' => 'audio/ogg',
+        'mov' => 'video/quicktime',
 
         //音频
         'amr' => 'audio/amr',
         'mp3' => 'audio/mp3',
-        'mov' => 'video/quicktime',
+        'wav' => 'audio/x-wav',
+        'm3u' => 'audio/x-mpegurl',
+        'm4a' => 'audio/x-m4a',
+        'ogg' => 'audio/ogg',
+        'ra'  => 'audio/x-realaudio',
 
         //excel类型
         'xls' => ['application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'application/vnd.ms-excel'],

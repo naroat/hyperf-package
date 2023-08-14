@@ -25,7 +25,10 @@ class Upload
     /**
      * 上传到本地
      *
-     * @param $upload_path 上传路径
+     * @param $file
+     * @param null $filename
+     * @return string
+     * @throws \Exception
      */
     public function toLocal($file, $filename = null)
     {
@@ -64,7 +67,10 @@ class Upload
     /**
      * 保存base64到文件
      *
-     * @param $save_path
+     * @param $filename
+     * @param $base64
+     * @param bool $path
+     * @return string
      * @throws \Exception
      */
     public function saveBase64ToLocal($filename, $base64, $path = false)
@@ -86,8 +92,11 @@ class Upload
     /**
      * 保存base64到文件
      *
-     * @param $save_path
-     * @throws \Exception
+     * @param $filename
+     * @param $base64
+     * @param $upload_remote_path
+     * @return string
+     * @throws \OSS\Core\OssException
      */
     public function saveBase64ToAlioss($filename, $base64, $upload_remote_path)
     {
@@ -145,7 +154,9 @@ class Upload
 
     /**
      * check
+     *
      * @return \Hyperf\HttpMessage\Upload\UploadedFile|\Hyperf\HttpMessage\Upload\UploadedFile[]|null
+     * @throws \Exception
      */
     public function checkFile()
     {
@@ -163,14 +174,19 @@ class Upload
     /**
      * 文件格式验证
      *
-     * @param $ext
+     * @param $ext  后缀
+     * @param null $customExt array 自定义上传后缀
      * @return bool
-     * @throws Exception
+     * @throws \Exception
      */
-    public function extCheck($ext)
+    public function extCheck($ext, $customExt = null)
     {
         $ext = strtolower($ext);
-        $exts = ExtGroup::$ext;
+        if ($customExt != null) {
+            $exts = $customExt;
+        } else {
+            $exts = ExtGroup::$ext;
+        }
         if (!in_array($ext, $exts)) {
             throw new \Exception('不支持的文件类型！');
         }
