@@ -36,6 +36,7 @@ class ExtGroup
         'm3u',
         'm4a',
         'ra',
+        'aac',
         //视频
         'mp4',
         'avi',
@@ -92,6 +93,7 @@ class ExtGroup
         'm4a' => 'audio/x-m4a',
         'ogg' => 'audio/ogg',
         'ra'  => 'audio/x-realaudio',
+        'aac' => 'audio/aac',
 
         //excel类型
         'xls' => ['application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'application/vnd.ms-excel'],
