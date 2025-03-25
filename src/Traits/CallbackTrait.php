@@ -1,17 +1,19 @@
 <?php
 
 
-namespace Taoran\HyperfPackage\Traits;
+namespace Naroat\HyperfPackage\Traits;
 
 
 trait CallbackTrait
 {
     /**
-     * 回调
+     * callbakc
      *
      * @param $call_user_func
+     * @param ...$data
+     * @return false|void
      */
-    public static function callback($call_user_func, ...$data)
+    public function callback($call_user_func, ...$data)
     {
         if (!is_callable($call_user_func)) {
             return false;

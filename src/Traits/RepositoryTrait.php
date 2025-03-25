@@ -1,37 +1,31 @@
 <?php
 
 
-namespace Taoran\HyperfPackage\Traits;
+namespace Naroat\HyperfPackage\Traits;
 
-use Taoran\HyperfPackage\Traits\CallbackTrait;
 
 /**
- * repository层，协助model处理
+ * repository，协助model处理
  *
  * Trait RepositoryTrait
- * @package App\Traits
  */
 trait RepositoryTrait
 {
-    /**
-     * 获取列表
-     *
-     * @param array $select
-     * @param bool $is_all
-     * @return \Hyperf\Contract\LengthAwarePaginatorInterface
-     */
-    public function getList($select = ['*'], $params, callable $where = null)
+    use CallbackTrait;
+
+    public function getList($params, $select = ['*'], callable $where = null)
     {
         $orm = self::select($select)->where('is_on', 1);
 
-        //执行callable
-        CallbackTrait::callback($where, $orm);
+        //callable
+        $this->callback($where, $orm);
 
         if (isset($params['is_all']) && $params['is_all'] == 1) {
             $list = $orm->get();
         } else {
-            $list = $orm->paginate($params['page_limit'] ?? 20, ['*'], 'page', $params['page'] ?? 1);
+            $list = $orm->paginate($params['page_limit'] ?? self::PAGE_SIZE, ['*'], 'page', $params['page'] ?? 1);
         }
+
         return $list;
     }
 
@@ -39,6 +33,9 @@ trait RepositoryTrait
      * 根据id获取数据
      *
      * @param $id
+     * @param $select
+     * @return \Hyperf\Database\Query\Builder|mixed
+     * @throws \Exception
      */
     public function getOneById($id, $select = ['*'])
     {
@@ -52,15 +49,16 @@ trait RepositoryTrait
     /**
      * 获取单条数据
      *
-     * @param array $select
-     * @param string $where
+     * @param $select
+     * @param callable|null $where
      * @return \Hyperf\Database\Model\Model|\Hyperf\Database\Query\Builder|object|null
      */
     public function getOne($select = ['*'], callable $where = null)
     {
         $orm =  self::select($select)->where('is_on', 1);
 
-        CallbackTrait::callback($where, $orm);
+        //callable
+        $this->callback($where, $orm);
 
         return $orm->first();
     }

@@ -1,11 +1,11 @@
 {
-    "name": "taoran/hyperf-package",
-    "description": "taoran hyperf-package",
+    "name": "naroat/hyperf-package",
+    "description": "Toolkit for hyperf",
     "keywords": ["php", "hyperf", "util", "package", "kit"],
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "Taoran\\HyperfPackage\\": "src/"
+            "Naroat\\HyperfPackage\\": "src/"
         },
         "files": [
             "src/Helpers/Function.php"
@@ -18,18 +18,21 @@
         }
     ],
     "require": {
-        "php": ">=7.3",
-        "hyperf/framework": "~2.2.0",
-        "hyperf/validation": "^2.2",
-        "hyperf/paginator": "~2.2.0",
-        "hyperf/di": "~2.2.0",
-        "phpmailer/phpmailer": "^6.6",
-        "aliyuncs/oss-sdk-php": "^2.6",
-        "hashids/hashids": "^4.1"
+        "php": ">=8.1",
+        "hyperf/snowflake": "^3.1",
+        "hyperf/framework": "^3.1",
+        "hyperf/di": "^3.1",
+        "hyperf/config": "^3.1",
+        "hyperf/cache": "^3.1",
+        "hyperf/http-message": "^3.1",
+        "hyperf/http-server": "^3.1",
+        "hyperf/db-connection": "^3.1",
+        "hyperf/database-pgsql": "^3.1",
+        "hyperf/database": "^3.1"
     },
     "extra": {
         "hyperf": {
-            "config": "Taoran\\HyperfPackage\\ConfigProvider"
+            "config": "Naroat\\HyperfPackage\\ConfigProvider"
         }
     }
 }
