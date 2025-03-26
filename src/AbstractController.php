@@ -2,11 +2,13 @@
 
 namespace Naroat\HyperfPackage;
 
+use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseInterface;
 
 abstract class AbstractController
 {
     public function __construct(
+        readonly protected ContainerInterface $container,
         readonly protected Request $request,
         readonly protected Response $response
     ) {
