@@ -7,7 +7,9 @@
         "psr-4": {
             "Naroat\\HyperfPackage\\": "src/"
         },
-        "files": []
+        "files": [
+            "src/Helpers/functions.php"
+        ]
     },
     "authors": [
         {
@@ -26,7 +28,9 @@
         "hyperf/http-server": "^3.1",
         "hyperf/db-connection": "^3.1",
         "hyperf/database-pgsql": "^3.1",
-        "hyperf/database": "^3.1"
+        "hyperf/database": "^3.1",
+        "hyperf/logger": "^3.1",
+        "hyperf/redis": "^3.1"
     },
     "extra": {
         "hyperf": {

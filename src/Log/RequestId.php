@@ -5,12 +5,13 @@ namespace Naroat\HyperfPackage\Log;
 use Hyperf\Context\ApplicationContext;
 use Hyperf\Context\Context;
 use Hyperf\Coroutine\Coroutine;
-use Hyperf\Snowflake\IdGenerator;
 use Hyperf\Snowflake\IdGeneratorInterface;
 
 class RequestId
 {
     public const REQUEST_ID = 'log.request.id';
+
+    private static string $type = 'uuid';
 
     public static function getRequestId()
     {

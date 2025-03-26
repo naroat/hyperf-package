@@ -22,6 +22,7 @@ class Response extends \Hyperf\HttpServer\Response
     {
         $format = [
             'requestId' => RequestId::getRequestId(),
+            'path' => container()->get(Request::class)->getUri()->getPath(),
             'code' => $code,
             'status' => $status,    //bool
             'message' => $message,
