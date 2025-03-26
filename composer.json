@@ -7,9 +7,7 @@
         "psr-4": {
             "Naroat\\HyperfPackage\\": "src/"
         },
-        "files": [
-            "src/Helpers/Function.php"
-        ]
+        "files": []
     },
     "authors": [
         {
