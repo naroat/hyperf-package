@@ -15,7 +15,7 @@ trait RepositoryTrait
 
     public function getList($params, $select = ['*'], callable $where = null)
     {
-        $orm = self::select($select)->where('is_on', 1);
+        $orm = self::select($select);
 
         //callable
         $this->callback($where, $orm);
@@ -39,7 +39,7 @@ trait RepositoryTrait
      */
     public function getOneById($id, $select = ['*'])
     {
-        $data = self::select($select)->where('is_on', 1)->find($id);
+        $data = self::select($select)->find($id);
         if (!$data) {
             throw new \Exception("数据不存在！");
         }
@@ -55,7 +55,7 @@ trait RepositoryTrait
      */
     public function getOne($select = ['*'], callable $where = null)
     {
-        $orm =  self::select($select)->where('is_on', 1);
+        $orm =  self::select($select);
 
         //callable
         $this->callback($where, $orm);

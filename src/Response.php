@@ -18,7 +18,7 @@ class Response extends \Hyperf\HttpServer\Response
         return $this->format($code, $message, $data, false);
     }
 
-    protected function format(int $code, string $message, array $data, bool $status): ResponseInterface
+    public function format(int $code, string $message, array $data, bool $status): ResponseInterface
     {
         $format = [
             'requestId' => RequestId::getRequestId(),

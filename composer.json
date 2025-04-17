@@ -8,7 +8,8 @@
             "Naroat\\HyperfPackage\\": "src/"
         },
         "files": [
-            "src/Helpers/functions.php"
+            "src/Helpers/functions.php",
+            "src/Helpers/utils.php"
         ]
     },
     "authors": [
@@ -30,7 +31,8 @@
         "hyperf/database-pgsql": "^3.1",
         "hyperf/database": "^3.1",
         "hyperf/logger": "^3.1",
-        "hyperf/redis": "^3.1"
+        "hyperf/redis": "^3.1",
+        "hyperf/validation": "^3.1"
     },
     "extra": {
         "hyperf": {

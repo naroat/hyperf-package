@@ -3,18 +3,13 @@
 namespace Naroat\HyperfPackage\Exception\Handler;
 
 use Hyperf\Di\Annotation\Inject;
+use Hyperf\Logger\LoggerFactory;
 use Naroat\HyperfPackage\Constants\ErrorCode;
-use Hyperf\Codec\Json;
 use Hyperf\Contract\StdoutLoggerInterface;
 use Hyperf\ExceptionHandler\ExceptionHandler;
-use Hyperf\HttpMessage\Stream\SwooleStream;
 use Hyperf\Logger\Logger;
-use Hyperf\Logger\LoggerFactory;
-use Naroat\HyperfPackage\Log\RequestId;
-use Naroat\HyperfPackage\Request;
 use Naroat\HyperfPackage\Response;
 use Psr\Http\Message\ResponseInterface;
-use Hyperf\Context\ApplicationContext;
 /**
  * Class AppExceptionHandler.
  */
@@ -30,7 +25,7 @@ class AppExceptionHandler extends ExceptionHandler
     public function __construct()
     {
         $this->console = console();
-        $this->logger = ApplicationContext::getContainer()->get(LoggerFactory::class)->get();
+        $this->logger = logger();
     }
 
     public function handle(\Throwable $throwable, ResponseInterface $response): ResponseInterface
