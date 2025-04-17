@@ -8,17 +8,17 @@ use Psr\Http\Message\ResponseInterface;
 
 class Response extends \Hyperf\HttpServer\Response
 {
-    public function success(string $message = 'ok!', array $data = [], int $code = 200): ResponseInterface
+    public function success(string $message = 'ok!', array|object $data = [], int $code = 200): ResponseInterface
     {
         return $this->format($code, $message, $data, true);
     }
 
-    public function error(string $message = 'Server error!', array $data = [], int $code = 500): ResponseInterface
+    public function error(string $message = 'Server error!', array|object $data = [], int $code = 500): ResponseInterface
     {
         return $this->format($code, $message, $data, false);
     }
 
-    public function format(int $code, string $message, array $data, bool $status): ResponseInterface
+    public function format(int $code, string $message, array|object $data, bool $status): ResponseInterface
     {
         $format = [
             'requestId' => RequestId::getRequestId(),

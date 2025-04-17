@@ -25,12 +25,12 @@ abstract class AbstractController
         return $this->response;
     }
 
-    public function success(array $data = [], $code = 200): ResponseInterface
+    public function success(array|object $data = [], $code = 200): ResponseInterface
     {
         return $this->response->success('ok', $data, $code);
     }
 
-    public function error(string $message, $data = [], $code = 500): ResponseInterface
+    public function error(string $message, array|object $data = [], $code = 500): ResponseInterface
     {
         return $this->response->error($message, $data, $code);
     }
