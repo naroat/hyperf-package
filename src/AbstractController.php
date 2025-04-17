@@ -10,7 +10,8 @@ abstract class AbstractController
     public function __construct(
         readonly protected ContainerInterface $container,
         readonly protected Request $request,
-        readonly protected Response $response
+        readonly protected Response $response,
+        readonly protected Verify $verify
     ) {
     }
 
@@ -26,7 +27,7 @@ abstract class AbstractController
 
     public function success(array $data = [], $code = 200): ResponseInterface
     {
-        return $this->response->success(null, $data, $code);
+        return $this->response->success('ok', $data, $code);
     }
 
     public function error(string $message, $data = [], $code = 500): ResponseInterface
