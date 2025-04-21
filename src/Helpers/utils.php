@@ -21,7 +21,6 @@ if (! function_exists('orm_sql')) {
     }
 }
 
-
 if (!function_exists('set_save_data')) {
     /**
      * 设置保存数据（主要过滤实体，防止xss）
@@ -42,3 +41,19 @@ if (!function_exists('set_save_data')) {
         return $data;
     }
 }
+
+if (!function_exists('get_client_ip')) {
+    /**
+     * 获取客户端ip
+     *
+     * @param $request
+     * @return mixed|string
+     */
+    function get_client_ip($request) {
+        return $request->getHeaderLine('X-Forwarded-For')
+            ?: $request->getHeaderLine('X-Real-IP')
+                ?: ($request->getServerParams()['remote_addr'] ?? '')
+                    ?: '127.0.0.1';
+    }
+}
+
