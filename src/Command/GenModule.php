@@ -25,7 +25,7 @@ class GenModule extends HyperfCommand
         $name = $this->input->getArgument('name');
 
         //path
-        $path = BASE_PATH . '/app/' . $name;
+        $path = BASE_PATH . '/app/Module/' . $name;
 
         //create dir
         $dirs = [
