@@ -44,14 +44,13 @@ class GenModule extends HyperfCommand
 
         if (file_exists($path) && is_dir($path)) {
             $this->warn('The directory exists.');
+        } else {
+            foreach ($dirs as $dir) {
+                $pathFull = $path . '/' . $dir;
+                @mkdir($pathFull, 0755, true);
+            }
+            $this->line('ok', 'info');
         }
-
-        foreach ($dirs as $dir) {
-            $pathFull = $path . '/' . $dir;
-            @mkdir($pathFull, 0755, true);
-        }
-
-        $this->line('ok', 'info');
     }
 
 
