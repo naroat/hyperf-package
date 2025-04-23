@@ -32,11 +32,15 @@
         "hyperf/database": "^3.1",
         "hyperf/logger": "^3.1",
         "hyperf/redis": "^3.1",
-        "hyperf/validation": "^3.1"
+        "hyperf/validation": "^3.1",
+        "hyperf/command": "^3.1"
     },
     "extra": {
         "hyperf": {
             "config": "Naroat\\HyperfPackage\\ConfigProvider"
         }
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^10"
     }
 }
