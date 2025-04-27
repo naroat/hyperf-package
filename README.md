@@ -1,11 +1,9 @@
 # hyperf-package
 
-基于hyperf封装的简单工具包
+基于hyperf框架的基础开发工具包
 
-# feature
+# 安装
 
-- 控制器基类
-- 响应类
-- 请求类
-- Model基类
-- service基类
+```
+composer require naroat/hyperf-package
+```
