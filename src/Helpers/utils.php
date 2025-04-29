@@ -49,11 +49,29 @@ if (!function_exists('get_client_ip')) {
      * @param $request
      * @return mixed|string
      */
-    function get_client_ip($request) {
+    function get_client_ip($request)
+    {
         return $request->getHeaderLine('X-Forwarded-For')
             ?: $request->getHeaderLine('X-Real-IP')
                 ?: ($request->getServerParams()['remote_addr'] ?? '')
                     ?: '127.0.0.1';
     }
 }
+
+if (!function_exists('get_scheme')) {
+    /**
+     * 获取协议架构
+     *
+     * @param $request
+     * @return string
+     */
+    function get_scheme($request)
+    {
+        if (isset($request->getHeader('X-scheme')[0])) {
+            return $request->getHeader('X-scheme')[0] . '://';
+        }
+        return 'http://';
+    }
+}
+
 

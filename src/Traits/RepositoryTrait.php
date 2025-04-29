@@ -5,7 +5,7 @@ namespace Naroat\HyperfPackage\Traits;
 
 
 /**
- * repository，协助model处理
+ * repository: model Trait
  *
  * Trait RepositoryTrait
  */
@@ -13,6 +13,14 @@ trait RepositoryTrait
 {
     use CallbackTrait;
 
+    /**
+     * 获取列表
+     *
+     * @param $params
+     * @param $select
+     * @param callable|null $where
+     * @return \Hyperf\Collection\Collection|\Hyperf\Contract\LengthAwarePaginatorInterface
+     */
     public function getList($params, $select = ['*'], callable $where = null)
     {
         $orm = self::select($select);
@@ -21,6 +29,7 @@ trait RepositoryTrait
         $this->callback($where, $orm);
 
         if (isset($params['is_all']) && $params['is_all'] == 1) {
+            //获取全部
             $list = $orm->get();
         } else {
             $list = $orm->paginate($params['page_limit'] ?? self::PAGE_SIZE, ['*'], 'page', $params['page'] ?? 1);
@@ -61,5 +70,10 @@ trait RepositoryTrait
         $this->callback($where, $orm);
 
         return $orm->first();
+    }
+
+    public function setSaveData()
+    {
+
     }
 }

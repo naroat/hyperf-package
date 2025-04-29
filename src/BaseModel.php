@@ -1,10 +1,12 @@
 <?php
-
+/**
+ *
+ */
 namespace Naroat\HyperfPackage;
 
 use Naroat\HyperfPackage\Traits\RepositoryTrait;
 
-class Model extends \Hyperf\Database\Model\Model
+class BaseModel extends \Hyperf\Database\Model\Model
 {
     use RepositoryTrait;
 

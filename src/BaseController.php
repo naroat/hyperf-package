@@ -5,7 +5,7 @@ namespace Naroat\HyperfPackage;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseInterface;
 
-abstract class AbstractController
+abstract class BaseController
 {
     public function __construct(
         readonly protected ContainerInterface $container,
