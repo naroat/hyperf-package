@@ -33,7 +33,8 @@
         "hyperf/logger": "^3.1",
         "hyperf/redis": "^3.1",
         "hyperf/validation": "^3.1",
-        "hyperf/command": "^3.1"
+        "hyperf/command": "^3.1",
+        "naroat/ivory": "^1.0"
     },
     "extra": {
         "hyperf": {

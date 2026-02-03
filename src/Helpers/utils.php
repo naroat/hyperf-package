@@ -1,13 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
+use Naroat\Ivory\Random\Random;
+
 if (! function_exists('orm_sql')) {
     /**
-     * orm to sql
+     * orm to sql.
      *
-     * @param $model
-     * @return string
+     * @param mixed $model
      */
-    function orm_sql($model)
+    function orm_sql($model): string
     {
         $bindings = $model->getBindings();
         $sql = str_replace('?', '%s', $model->toSql());
@@ -16,23 +19,19 @@ if (! function_exists('orm_sql')) {
                 $bindings[$key] = "'" . $val . "'";
             }
         }
-        $tosql = sprintf($sql, ...$bindings);
-        return $tosql;
+        return sprintf($sql, ...$bindings);
     }
 }
 
-if (!function_exists('set_save_data')) {
+if (! function_exists('set_save_data')) {
     /**
-     * 设置保存数据（主要过滤实体，防止xss）
-     *
-     * @param array $data
-     * @return array
+     * 设置保存数据（主要过滤实体，防止xss）.
      */
-    function set_save_data(array $data)
+    function set_save_data(array $data): array
     {
         foreach ($data as $key => $v) {
             if (is_string($v)) {
-                //转换html内容
+                // 转换html内容
                 $data[$key] = htmlspecialchars($v, ENT_QUOTES);
             } else {
                 $data[$key] = $v;
@@ -42,11 +41,11 @@ if (!function_exists('set_save_data')) {
     }
 }
 
-if (!function_exists('get_client_ip')) {
+if (! function_exists('get_client_ip')) {
     /**
-     * 获取客户端ip
+     * 获取客户端ip.
      *
-     * @param $request
+     * @param mixed $request
      * @return mixed|string
      */
     function get_client_ip($request)
@@ -58,14 +57,13 @@ if (!function_exists('get_client_ip')) {
     }
 }
 
-if (!function_exists('get_scheme')) {
+if (! function_exists('get_scheme')) {
     /**
-     * 获取协议架构
+     * 获取协议架构.
      *
-     * @param $request
-     * @return string
+     * @param mixed $request
      */
-    function get_scheme($request)
+    function get_scheme($request): string
     {
         if (isset($request->getHeader('X-scheme')[0])) {
             return $request->getHeader('X-scheme')[0] . '://';
@@ -74,4 +72,34 @@ if (!function_exists('get_scheme')) {
     }
 }
 
+if (! function_exists('create_password')) {
+    /**
+     * 创建一个密码
+     *
+     * @param string $password 密码
+     * @param string $salt 扰乱码
+     */
+    function create_password(string $password, string &$salt): string
+    {
+        $salt = Random::randString(5);
+        return md5(sha1($password . $salt));
+    }
+}
 
+if (! function_exists('eq_password')) {
+    /**
+     * 判断密码是否相等.
+     *
+     * @param string $encrypted_password 已加密密码
+     * @param string $password 要比对的密码
+     * @param string $salt 扰乱码
+     * @return bool
+     */
+    function eq_password(string $encrypted_password, string $password, string $salt): bool
+    {
+        if ($encrypted_password != md5(sha1($password . $salt))) {
+            return false;
+        }
+        return true;
+    }
+}
