@@ -79,9 +79,8 @@ if (! function_exists('create_password')) {
      * @param string $password 密码
      * @param string $salt 扰乱码
      */
-    function create_password(string $password, string &$salt): string
+    function create_password(string $password, string $salt): string
     {
-        $salt = Random::randString(5);
         return md5(sha1($password . $salt));
     }
 }

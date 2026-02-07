@@ -34,7 +34,8 @@
         "hyperf/redis": "^3.1",
         "hyperf/validation": "^3.1",
         "hyperf/command": "^3.1",
-        "naroat/ivory": "^1.0"
+        "naroat/ivory": "^1.0",
+        "hyperf/paginator": "^3.1"
     },
     "extra": {
         "hyperf": {
